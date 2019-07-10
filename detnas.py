@@ -48,9 +48,7 @@ class DetNAs(nn.Module):
 
         self.num_states = np.sum(self.stage_repeats)
 
-        #self.stage_out_channels = [-1, 48, 96, 240, 480, 960, 1024] # [-1, 16, 64, 160, 320, 640, 1024]
-#        self.stage_out_channels = [-1, 48, 96, 256, 512, 1024, 2048]
-        self.stage_out_channels = [-1, 128, 256, 512, 1024, 2048]
+        self.stage_out_channels = [-1, 48, 96, 240, 480, 960, 1024] # [-1, 16, 64, 160, 320, 640, 1024
 
         # building first layer
         input_channel = self.stage_out_channels[1]
@@ -88,7 +86,8 @@ class DetNAs(nn.Module):
 
     def forward(self, x):
         outputs = []
-        rngs = np.random.randint(low=0, high=4, size=(40))
+        #rngs = np.random.randint(low=0, high=4, size=(40))
+        rngs = [0,0,3,1,2,1,0,2,0,3,1,2,3,3,2,0,2,1,1,3,2,0,2,2,2,1,3,1,0,3,3,3,1,3,3,3,3,3,3,3]
         x = self.conv1(x)
         for i, select_op in enumerate(self.features):
             x = select_op(x, rngs[i])
